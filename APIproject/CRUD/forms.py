@@ -14,8 +14,8 @@ class UsuariosForm(forms.ModelForm):
         }
 
         widgets  ={
-            'cedula' : forms.NumberInput(attrs={'placeholder': 'eg. 1234567890'}),
-            'nombre' : forms.TextInput(attrs={'placeholder': 'eg. Juan'}),
-            'apellido' : forms.TextInput(attrs={'placeholder': 'eg. Barbosa'}),
-            'correo' : forms.EmailInput(attrs={'placeholder': 'eg. abc@xyz.com'}),
+            'cedula' : forms.NumberInput(attrs={'placeholder': 'Ejemplo: 1234567890'}),
+            'nombre' : forms.TextInput(attrs={'placeholder': 'Ejemplo: Gerson'}),
+            'apellido' : forms.TextInput(attrs={'placeholder': 'Ejemplo: Moreno'}),
+            'correo' : forms.EmailInput(attrs={'placeholder': 'Ejemplo: abc@xyz.com'}),
         }
