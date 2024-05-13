@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    <title>Confirmación</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form class="jumbotron" method="post">
+            {% csrf_token %}
+            <h2>¿Estás seguro que quieres eliminar a {{obj.nombre}} {{obj.apellido}}?</h2>
+            <input type="submit" value="Si" class="btn btn-danger">
+            <button class="btn btn-success"><a href="{% url 'lista_url' %}">No</a></button>
+        </form>
+    </div>
+{% endblock %}
