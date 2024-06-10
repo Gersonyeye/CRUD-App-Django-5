@@ -32,12 +32,18 @@ def listaView(request):
 @login_required
 def updateView(request, f_cedula):
     obj = Usuarios.objects.get(cedula=f_cedula)
+    
     form = UsuariosForm(instance=obj)
     if request.method == 'POST':
         form = UsuariosForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
+            if f_cedula != form.cleaned_data['cedula']:
+                objDelete = Usuarios.objects.get(cedula=f_cedula)
+                objDelete.delete()
+            
             return redirect('lista_url')
+    
     template_name = 'CRUD/create.html'
     context = {'form': form,
                 'boton':'Editar'}
@@ -57,3 +63,4 @@ def deleteView(request, f_cedula):
 def exit(request):
     logout(request)
     return redirect('home')
+
