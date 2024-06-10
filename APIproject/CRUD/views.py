@@ -37,11 +37,18 @@ def updateView(request, f_cedula):
     if request.method == 'POST':
         form = UsuariosForm(request.POST, instance=obj)
         if form.is_valid():
-            form.save()
+
             if f_cedula != form.cleaned_data['cedula']:
-                objDelete = Usuarios.objects.get(cedula=f_cedula)
-                objDelete.delete()
-            
+                objUpdate = Usuarios.objects.filter(cedula=f_cedula)
+                objUpdate.update(
+                    nombre = form.cleaned_data['nombre'],
+                    apellido = form.cleaned_data['apellido'],
+                    cedula = form.cleaned_data['cedula'],
+                    correo = form.cleaned_data['correo']
+                )
+            else:
+                form.save()
+
             return redirect('lista_url')
     
     template_name = 'CRUD/create.html'
