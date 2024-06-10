@@ -12,6 +12,7 @@ class TestViews(TestCase):
         self.client = Client()
         self.create_url = reverse('create_url')
         self.list_url = reverse('lista_url')
+        self.logout_url = reverse('exit')
         self.user_test = User.objects.create_user(username='testuser', password='testpassword')
         self.user_created = Usuarios.objects.create(
                                                         cedula = '1234',
@@ -109,3 +110,16 @@ class TestViews(TestCase):
 
         self.assertTemplateNotUsed(response,'CRUD/confirmation.html')
         self.assertTemplateUsed(response,'registration/login.html')
+
+    def test_logout(self):
+
+        self.client.login(username = 'testuser', password = 'testpassword')
+
+        response = self.client.get(self.logout_url,follow=True)
+
+        user_authenticated = '_auth_user_id' in self.client.session
+
+        self.assertRedirects(response, reverse('home'))
+        self.assertEqual(response.status_code,200)
+        self.assertFalse(user_authenticated)
+        self.assertTemplateUsed(response, 'CRUD/home.html')
